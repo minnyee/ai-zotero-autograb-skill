@@ -2,7 +2,16 @@
 
 [English](README.md)
 
-一个用于限定范围的学术文献检索、书目核验与 Zotero 动态分类的 [Agent Skill](https://agentskills.io/specification)。AI 负责检索和相关性判断；内置 Python 脚本负责校验已取得的书目证据、去重和目录归属。这是 AI 工作流，不是独立搜索引擎。
+**联动 AI 文献检索与分类，自动入库 Zotero 的 AI Agent Skill。** 告诉 AI 要找什么：它按选定的出版范围检索和筛选，根据文章证据动态分类，再将核验后的书目条目保存到 Zotero。
+
+## 亮点
+
+- **贯通检索到入库：** AI 负责搜索与分类，内置 Python 脚本校验已取得的书目证据、去重并自动写入本机 Zotero。
+- **按文章动态组织：** 不预设领域分类，同一条文献可以多重归类而不生成副本，主题父目录直接显示全部已归属文献。
+- **过程可控、支持续查：** 确认关键词和出版范围，入库前预览，后续发现追加到原目录，同时保护已有条目和附件。
+- **依赖轻量：** Python 标准库与 Zotero 10+，无需额外 MCP 服务器或 Zotero 浏览器扩展。
+
+这是安装在具备所需能力的 AI 客户端中的 [Agent Skill](https://agentskills.io/specification)，例如使用 GPT 的 Codex 环境；它不是 Zotero 内部插件，也不是独立搜索引擎。全文获取沿用用户自己的 Zotero 配置。
 
 ## 使用前提
 

@@ -2,7 +2,16 @@
 
 [简体中文](README_CN.md)
 
-An [Agent Skill](https://agentskills.io/specification) for finding scholarly papers within a chosen scope, verifying their bibliography, and saving them into dynamic Zotero collections. The AI searches and judges relevance; a bundled Python helper checks supplied evidence, deduplicates records, and manages collection memberships. This is an AI workflow, not a standalone search engine.
+**An AI Agent Skill that connects literature search and classification to automatic Zotero import.** Tell your AI what to find: it searches within your chosen publication scope, screens papers, derives categories from article evidence, and saves verified records into your Zotero collections.
+
+## Highlights
+
+- **One connected workflow:** AI searches and classifies; the bundled Python helper verifies supplied bibliographic evidence, deduplicates records, and automatically imports them into local Zotero.
+- **Evidence-based organization:** categories follow the topic and papers rather than a fixed taxonomy. Multi-category membership reuses one item, with all results directly visible in the topic root.
+- **Controlled and repeatable:** confirm keywords and publication scope, preview imports, and append later discoveries while preserving existing records and attachments.
+- **Lightweight setup:** Python standard library and Zotero 10+, with no extra MCP server or Zotero browser extension.
+
+Install this [Agent Skill](https://agentskills.io/specification) in a capable AI client, such as a GPT-powered Codex environment; it is not a Zotero plugin or a standalone search engine. Full-text retrieval stays with your Zotero setup.
 
 ## Requirements
 
