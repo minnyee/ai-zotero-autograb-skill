@@ -300,6 +300,7 @@ def default_state_dir():
         base = Path(os.environ.get("LOCALAPPDATA", Path.home() / "AppData" / "Local"))
     else:
         base = Path(os.environ.get("XDG_STATE_HOME", Path.home() / ".local" / "state"))
+    # Preserve existing credentials and task state across the skill rename.
     return base / "zotero-literature-search"
 
 
@@ -381,7 +382,7 @@ class Zotero:
 
     def authorize(self):
         response, _ = self.request("POST", "/api/local/authorize",
-                                   {"appName": "Zotero Literature Search Skill"}, timeout=120)
+                                   {"appName": "AI Zotero AutoGrab Skill"}, timeout=120)
         if not response or not response.get("key"):
             raise LibraryError("Zotero did not grant local write authorization.")
         self.key = response["key"]

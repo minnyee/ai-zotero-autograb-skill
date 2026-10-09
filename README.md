@@ -1,4 +1,6 @@
-# Zotero Literature Search
+# AI Zotero AutoGrab Skill
+
+**AI-powered literature search, dynamic classification, and automatic Zotero import.**
 
 [简体中文](README_CN.md)
 
@@ -9,13 +11,14 @@
 - **One connected workflow:** AI searches and classifies; the bundled Python helper verifies supplied bibliographic evidence, deduplicates records, and automatically imports them into local Zotero.
 - **Evidence-based organization:** categories follow the topic and papers rather than a fixed taxonomy. Multi-category membership reuses one item, with all results directly visible in the topic root.
 - **Controlled and repeatable:** confirm keywords and publication scope, preview imports, and append later discoveries while preserving existing records and attachments.
+- **Your collection, your choice:** create a new collection or append to an existing one. Imports reuse matching items and never delete or overwrite existing records, attachments, or notes.
 - **Lightweight setup:** Python standard library and Zotero 10+, with no extra MCP server or Zotero browser extension.
 
-Install this [Agent Skill](https://agentskills.io/specification) in a capable AI client, such as a GPT-powered Codex environment; it is not a Zotero plugin or a standalone search engine. Full-text retrieval stays with your Zotero setup.
+Install this [Agent Skill](https://agentskills.io/specification) in a capable AI client, such as ChatGPT Work with local execution or Codex; it is not a Zotero plugin or a standalone search engine. Full-text retrieval stays with your Zotero setup.
 
 ## Requirements
 
-- An AI client supporting skills, web search, and local Python execution. **Codex on Windows is tested**, but is not mandatory. ChatGPT and other clients are suitable only if their execution environment provides these capabilities and can reach local Zotero.
+- An AI client supporting local filesystem skills, web search, and local Python execution. **A Windows local agent runtime is tested**. ChatGPT Work, Codex, and other clients are suitable when their available tools and permissions provide these capabilities and can reach local Zotero. Ordinary web chat or a cloud-only runtime is insufficient without access to the computer running Zotero.
 - **Python 3.10+**, standard library only.
 - Running **Zotero 10+** with an editable **My Library**. Group libraries are unsupported.
 - In Zotero, enable **Settings → Advanced → Allow other applications on this computer to communicate with Zotero**. Approve Zotero's authorization dialog when first writing through the local API.
@@ -28,11 +31,15 @@ Full-text retrieval is separate: use Zotero's built-in capabilities or an indepe
 
 ## Install and use
 
-Copy the entire `skills/zotero-literature-search` folder into your client's skill directory. Codex defaults to `~/.codex/skills/zotero-literature-search`, or `$CODEX_HOME/skills/zotero-literature-search`; other clients use their own locations. Reload skill discovery if needed. Keep the scripts and references with `SKILL.md`.
+Share the [repository link](https://github.com/minnyee/ai-zotero-autograb-skill). In a client with a local skill installer, ask:
+
+> Install the skill from https://github.com/minnyee/ai-zotero-autograb-skill/tree/main/skills/ai-zotero-autograb-skill
+
+Alternatively, copy the entire `skills/ai-zotero-autograb-skill` folder into your client's configured local skill directory. Current OpenAI documentation lists `~/.agents/skills` for user skills; existing clients may use a configured or legacy location. See [local skill locations](https://learn.chatgpt.com/docs/build-skills). Reload discovery if needed; keep scripts and references with `SKILL.md`. Replace an earlier `zotero-literature-search` installation rather than leaving both skills active.
 
 Example request:
 
-> Use zotero-literature-search to find papers on [your topic] within [your publication scope]. Append to my existing [collection name]. Show the keywords before searching and preview the import. Save bibliographic records only; no full-text download.
+> Use ai-zotero-autograb-skill to find papers on [your topic] within [your publication scope]. Append to my existing [collection name]. Show the keywords before searching and preview the import. Save bibliographic records only; no full-text download.
 
 1. **Confirm scope, keywords, and destination.** Choose an existing collection or a new topic. Explicit choices are reused; same-topic supplements append by default, while new topics do not inherit old restrictions.
 2. **Search and screen.** Cover synonyms, abbreviations and full names, pagination, and citation links. Reuse cached results and report uncovered branches or access limits.
@@ -57,7 +64,7 @@ Existing metadata, attachments, notes, tags, and memberships are protected. Norm
 
 ## Helper and local data
 
-Run these commands from the installed skill directory. The AI prepares the manifest using the [schema and examples](skills/zotero-literature-search/references/manifest.md); the helper does not search websites or fetch DOI verification evidence itself.
+Run these commands from the installed skill directory. The AI prepares the manifest using the [schema and examples](skills/ai-zotero-autograb-skill/references/manifest.md); the helper does not search websites or fetch DOI verification evidence itself.
 
 ```sh
 python scripts/zotero_library.py doctor
@@ -69,13 +76,15 @@ python scripts/zotero_library.py ingest --manifest manifest.json --report import
 
 Credentials and runtime data stay on the installer's machine, outside the distributed skill. State defaults to `%LOCALAPPDATA%/zotero-literature-search` on Windows and `$XDG_STATE_HOME/zotero-literature-search` or `~/.local/state/zotero-literature-search` elsewhere. Windows credentials use user-bound DPAPI; other platforms use a private file. Keep manifests, reports, caches, and credentials out of Git. Revoke grants through Zotero's **Clear Write Authorizations** setting.
 
+The runtime directory retains its original name for upgrade compatibility, preserving existing grants and continuation state.
+
 ## Validation and license
 
 Run `python -m unittest discover -s tests` from the repository root. **48 automated tests** use fictional records and a local mock server, never real Zotero. They cover DOI correspondence/conflicts, strict IEEE scope, destination continuation, hierarchical membership, preservation, authorization, partial saves, pagination, and relocated Unicode paths. Passing tests does not establish search completeness or scientific quality.
 
 | Environment | Validation |
 | --- | --- |
-| Windows / Python / Codex | Automated tests and skill-format validation passed |
+| Windows / Python / local AI agent runtime | Automated tests and skill-format validation passed |
 | Windows / Zotero 10.0.5 | Previously verified live import, deduplication, classification, library preservation, and recovery of a committed save after a response failure |
 | macOS, Linux, other AI clients | Not run-tested |
 

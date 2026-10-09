@@ -1,10 +1,10 @@
 ---
-name: zotero-literature-search
-description: Search scholarly literature within the user's chosen publication scope, verify bibliographic identifiers, and save/classify records in local Zotero. 用于通用学术文献检索、DOI 核实、Zotero 入库及动态分类。
+name: ai-zotero-autograb-skill
+description: Connect AI literature search and evidence-based classification to automatic import into local Zotero. Use for scoped scholarly discovery, DOI verification, and saving records into a new or existing collection. 用于通用文献检索、动态分类、DOI 核验及 Zotero 自动入库。
 license: MIT
 ---
 
-# Zotero Literature Search
+# AI Zotero AutoGrab Skill
 
 The agent searches and judges relevance; the standard-library Python helper saves and classifies verified records using Zotero Connector and Zotero 10+ Local API. Requires a skills-compatible agent with scholarly/web access and Python 3.10+. No additional MCP or Python packages. PDF acquisition is the installer's Zotero/plugin configuration; do not promise that importing an item triggers a plugin or downloads its full text. Respect search-only requests.
 

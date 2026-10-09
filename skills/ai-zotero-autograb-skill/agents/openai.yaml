@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Zotero AutoGrab Skill"
+  short_description: "AI literature search, classification, and Zotero import"
+  default_prompt: "Use $ai-zotero-autograb-skill to search and classify scholarly papers, then automatically import verified records into a new or existing Zotero collection."

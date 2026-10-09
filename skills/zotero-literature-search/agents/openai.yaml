@@ -1,4 +1,0 @@
-interface:
-  display_name: "Zotero Literature Search"
-  short_description: "Search papers and save them with dynamic Zotero collections"
-  default_prompt: "Use $zotero-literature-search to search scholarly literature and organize verified records in Zotero."

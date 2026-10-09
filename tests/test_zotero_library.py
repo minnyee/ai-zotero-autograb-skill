@@ -12,7 +12,7 @@ import unittest
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlsplit
 
-SCRIPT = Path(__file__).resolve().parents[1] / "skills" / "zotero-literature-search" / "scripts" / "zotero_library.py"
+SCRIPT = Path(__file__).resolve().parents[1] / "skills" / "ai-zotero-autograb-skill" / "scripts" / "zotero_library.py"
 spec = importlib.util.spec_from_file_location("zotero_library", SCRIPT)
 lib = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(lib)
