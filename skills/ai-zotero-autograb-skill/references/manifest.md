@@ -56,6 +56,18 @@ python <skill>/scripts/zotero_library.py ingest --manifest manifest.json --repor
 
 `--parent-key KEY --append-existing` is an explicit membership-only CLI alternative to a confirmed destination. Legacy `--allow-existing-changes` permits additive tags/notes as well and requires separate authorization for those annotations. IEEE scope changes need `scope --confirm-scope-change` only after an explicit user decision; the flag is not a substitute for that decision.
 
+`doctor` is a read-only connectivity check, not a write test, and never requests write authorization. Global options `--base-url`, `--timeout` and `--state-dir` precede the subcommand; only loopback HTTP Zotero endpoints are allowed. The helper does not search websites or retrieve DOI verification evidence itself: the agent prepares the manifest from authoritative records.
+
+## Local authorization and runtime data
+
+The first Local API write may open Zotero's authorization dialog. The user grants authorization; the agent cannot approve its own grant. Reusable credentials are associated with the endpoint/server ID. Windows uses user-bound DPAPI; other platforms use a private local file. Keys are not printed. `ZOTERO_LOCAL_API_KEY` can supply an existing **local** API key, not a zotero.org Web API key. Revoke grants through Zotero's **Clear Write Authorizations** setting.
+
+The default state directory is `%LOCALAPPDATA%/zotero-literature-search` on Windows, or `$XDG_STATE_HOME/zotero-literature-search` / `~/.local/state/zotero-literature-search` elsewhere. This internal directory name is independent of the installed skill name and remains stable to preserve existing credentials and task state. Use `--state-dir` when an explicit alternative is needed.
+
+Keep credentials, manifests, evidence, reports, search caches and migration snapshots outside the distributed skill and out of Git. Keep Zotero on an editable My Library collection during Connector saves; group libraries are unsupported. The helper submits metadata through the built-in Connector protocol without invoking browser translators or transferring browser authentication cookies.
+
+## Partial failures and recovery
+
 Stdout stays compact; inspect the report for per-item errors. Exit codes: 0 success/preview, 1 item failures, 2 invalid input/setup. No DOI network verification or topic searching is performed by this helper. No item-deletion endpoint exists. Authorized collection cleanup is a separate audited migration, not a side effect of ingest.
 
 If saveItems committed but its response or updateSession failed, the failure report includes connector_session and a private session journal. Verify the unique saved item is absent from before_item_keys and matches the authoritative bibliography. Complete that exact native updateSession using the recorded sessionID/target before reapplying intended memberships; do not submit saveItems again. Preserve any user memberships added after the failed save, and stop for inspection if the session is expired or its ownership is ambiguous. Mere ingest retry can deduplicate the item but does not by itself repair an unintended initial Connector collection.

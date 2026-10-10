@@ -35,7 +35,7 @@ Share the [repository link](https://github.com/minnyee/ai-zotero-autograb-skill)
 
 > Install the skill from https://github.com/minnyee/ai-zotero-autograb-skill/tree/main/skills/ai-zotero-autograb-skill
 
-Alternatively, copy the entire `skills/ai-zotero-autograb-skill` folder into your client's configured local skill directory. Current OpenAI documentation lists `~/.agents/skills` for user skills; existing clients may use a configured or legacy location. See [local skill locations](https://learn.chatgpt.com/docs/build-skills). Reload discovery if needed; keep scripts and references with `SKILL.md`. Replace an earlier `zotero-literature-search` installation rather than leaving both skills active.
+Alternatively, copy the entire `skills/ai-zotero-autograb-skill` folder into your client's configured local skill directory. Current OpenAI documentation lists `~/.agents/skills` for user skills; existing clients may use a configured or legacy location. See [local skill locations](https://learn.chatgpt.com/docs/build-skills). Reload discovery if needed; keep scripts and references with `SKILL.md`.
 
 Example request:
 
@@ -49,34 +49,38 @@ Example request:
 
 ## Scope and safeguards
 
-| Shortcut | Publication scope |
+| Scope option | Publication scope |
 | --- | --- |
 | IEEE-Trans | IEEE Transactions, including joint Transactions |
 | IEEE-Journals | IEEE journals |
 | IEEE-Papers | IEEE journals and conferences |
 | Global | Scholarly publications across publishers |
+| Custom | User-defined publishers, journals, dates and article types |
 
 Custom publishers, journals, dates, and article types are accepted. For a publisher or journal restriction, **search its official platform or an already configured official API first**—IEEE scopes use IEEE Xplore. Global searches use suitable scholarly databases. An official website's entire catalog is not automatically in scope; check every paper's actual publication.
+
+The shortcuts are optional, not an exclusive list. See [search entry points](skills/ai-zotero-autograb-skill/references/search-sources.md) for official publisher routes, optional cross-publisher discovery and coverage notes. The reference is a navigation aid, not a requirement to search all listed sites.
 
 Other sites are not compulsory parallel searches. For a demonstrated access or coverage gap, explain the purpose and obtain the user's choice before using another discovery entry point or widening publication scope. Single-DOI verification is separate from topic searching.
 
 Existing metadata, attachments, notes, tags, and memberships are protected. Normal imports add authorized memberships only and never delete items or collections. Requested cleanup is a separate, explicitly authorized operation. Venue prestige alone does not establish relevance or quality; complete retrieval or full-paper reading requires evidence.
 
-## Helper and local data
+## Data and authorization
 
-Run these commands from the installed skill directory. The AI prepares the manifest using the [schema and examples](skills/ai-zotero-autograb-skill/references/manifest.md); the helper does not search websites or fetch DOI verification evidence itself.
+Authorization credentials and runtime state stay on the installer's computer, separate from the skill files and excluded from the GitHub distribution. The user approves the first local API write in Zotero and can later revoke authorization in Zotero's settings.
 
-```sh
-python scripts/zotero_library.py doctor
-python scripts/zotero_library.py ingest --manifest manifest.json --dry-run --report preview.json
-python scripts/zotero_library.py ingest --manifest manifest.json --report import.json
-```
+Normal use is through requests to the AI; manual script execution is not required. For commands, runtime locations and troubleshooting, see the [technical reference](skills/ai-zotero-autograb-skill/references/manifest.md).
 
-`doctor` checks connectivity, not actual writing. Inspect partial failures before retrying: a save may have committed before its response failed. Global options and recovery details are in the manifest reference.
+## Contributing
 
-Credentials and runtime data stay on the installer's machine, outside the distributed skill. State defaults to `%LOCALAPPDATA%/zotero-literature-search` on Windows and `$XDG_STATE_HOME/zotero-literature-search` or `~/.local/state/zotero-literature-search` elsewhere. Windows credentials use user-bound DPAPI; other platforms use a private file. Keep manifests, reports, caches, and credentials out of Git. Revoke grants through Zotero's **Clear Write Authorizations** setting.
+Suggestions, bug reports, feature requests and contributions are welcome.
 
-The runtime directory retains its original name for upgrade compatibility, preserving existing grants and continuation state.
+Help maintain the [search entry-point reference](skills/ai-zotero-autograb-skill/references/search-sources.md) by adding official journal or publisher search routes, correcting platform details and links, or reporting broken or unavailable entry points.
+
+- Open an [Issue](https://github.com/minnyee/ai-zotero-autograb-skill/issues) to share feedback, ask questions or propose an improvement.
+- Submit a [Pull Request](https://github.com/minnyee/ai-zotero-autograb-skill/pulls) for a ready-to-review fix to the skill, documentation or references. Small documentation and link corrections can go straight to a PR; an issue is not required first.
+
+For a new search entry point, include the source name, official URL and a short coverage note. Help distinguish publisher platforms from cross-publisher discovery services.
 
 ## Validation and license
 

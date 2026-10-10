@@ -35,7 +35,7 @@
 
 > 请安装这个 skill：https://github.com/minnyee/ai-zotero-autograb-skill/tree/main/skills/ai-zotero-autograb-skill
 
-也可把完整的 `skills/ai-zotero-autograb-skill` 文件夹复制到客户端配置的本机 skill 目录。当前 OpenAI 文档列出的用户目录为 `~/.agents/skills`，已有客户端也可能使用自定义或旧版位置，参见[本机 skill 目录说明](https://learn.chatgpt.com/docs/build-skills)。必要时重新加载，保留 `SKILL.md` 附带的脚本和参考文件。升级时替换旧的 `zotero-literature-search` 安装，避免两个 skill 同时启用。
+也可把完整的 `skills/ai-zotero-autograb-skill` 文件夹复制到客户端配置的本机 skill 目录。当前 OpenAI 文档列出的用户目录为 `~/.agents/skills`，已有客户端也可能使用自定义或旧版位置，参见[本机 skill 目录说明](https://learn.chatgpt.com/docs/build-skills)。必要时重新加载，保留 `SKILL.md` 附带的脚本和参考文件。
 
 示例请求：
 
@@ -49,34 +49,38 @@
 
 ## 范围与保护规则
 
-| 快捷选项 | 出版范围 |
+| 范围选项 | 出版范围 |
 | --- | --- |
 | IEEE-Trans | IEEE Transactions，包含联合 Transactions |
 | IEEE-Journals | IEEE 期刊 |
 | IEEE-Papers | IEEE 期刊与会议 |
 | Global | 跨出版社学术文献 |
+| Custom / 自定义 | 自行指定出版社、期刊、年份及文章类型 |
 
 支持自定义出版社、期刊、年份和文章类型。限定出版社或期刊时，**优先使用官方检索平台或已经配置的官方 API**；IEEE 范围优先 IEEE Xplore。Global 范围选择合适的学术数据库。官方网站上的全部内容不等于都符合要求，仍须逐篇核对实际出版物。
+
+快捷选项只是便捷入口，不限制只能从表中选择。出版社官方平台、可选跨出版社发现入口及覆盖说明见[检索入口参考表](skills/ai-zotero-autograb-skill/references/search-sources.md)；参考表用于导航，不要求逐站重复检索。
 
 不把其他网站作为必须重复执行的平行检索。确有访问或覆盖缺口时，先说明用途，由用户选择是否启用其他检索入口或扩大出版范围。单篇 DOI 核验与主题检索分开处理。
 
 保护已有元数据、附件、笔记、标签和目录归属。普通入库只追加已授权的目录归属，不删除条目或目录；用户要求的清理属于另行明确授权的操作。期刊声誉不能单独证明论文相关性或质量；没有证据时不宣称检索完整或已阅读全文。
 
-## 脚本与本机数据
+## 数据与授权
 
-在安装后的 skill 目录中执行以下命令。AI 按[清单格式与示例](skills/ai-zotero-autograb-skill/references/manifest.md)准备 manifest；脚本本身不检索网站，也不抓取 DOI 核验证据。
+授权凭据和运行状态保存在安装者本机，与 skill 文件分开，不包含在 GitHub 分发包中。首次通过本地 API 写入由用户在 Zotero 中授权，之后也可在 Zotero 设置中撤销授权。
 
-```sh
-python scripts/zotero_library.py doctor
-python scripts/zotero_library.py ingest --manifest manifest.json --dry-run --report preview.json
-python scripts/zotero_library.py ingest --manifest manifest.json --report import.json
-```
+日常使用只需向 AI 提出请求，无需手动运行脚本。命令、运行目录及排查方法见[技术参考文档](skills/ai-zotero-autograb-skill/references/manifest.md)。
 
-`doctor` 检查连接，不测试实际写入。部分失败后应先检查结果再重试，因为条目可能已经保存、只是响应失败。全局选项和恢复方法见清单参考文档。
+## 欢迎参与完善
 
-凭据与运行数据保留在安装者本机，放在分发 skill 之外。Windows 默认状态目录为 `%LOCALAPPDATA%/zotero-literature-search`，其他平台为 `$XDG_STATE_HOME/zotero-literature-search` 或 `~/.local/state/zotero-literature-search`。Windows 凭据使用当前用户绑定的 DPAPI，其他平台使用私有文件。不要把清单、报告、缓存或密钥提交到 Git；可通过 Zotero 的 **Clear Write Authorizations（清除写入授权）** 撤销授权。
+欢迎建议、问题反馈、功能需求及各类改进贡献。
 
-运行目录保留原名称以兼容升级，继续复用已有授权和续查状态。
+也欢迎补充期刊或出版社的官方检索入口、修正平台信息和链接，或提醒入口失效，帮助完善[检索入口参考](skills/ai-zotero-autograb-skill/references/search-sources.md)。
+
+- 通过 [Issue](https://github.com/minnyee/ai-zotero-autograb-skill/issues) 分享使用反馈、提问或讨论改进建议。
+- 有具体修改时，欢迎直接提交 [Pull Request（PR）](https://github.com/minnyee/ai-zotero-autograb-skill/pulls)，完善 skill、文档或参考资料。小型文档和链接修正无需先开 Issue。
+
+补充检索入口时，请附来源名称、官方网址及简短覆盖说明，并区分出版社平台与跨出版社发现服务。
 
 ## 验证与许可
 

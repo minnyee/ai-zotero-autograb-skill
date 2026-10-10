@@ -27,11 +27,14 @@ When source scope is unspecified for a new topic, ask once, offering:
 - **IEEE-Journals**: IEEE journals.
 - **IEEE-Papers**: IEEE journals and conferences.
 - **Global**: scholarly publications across publishers.
+- **Custom / 自定义**: user-defined publishers, journals, dates and article types; the shortcuts are optional examples, not an exclusive list.
 Accept custom sources, dates and article types. New topics do not inherit old restrictions. Same-topic supplements reuse the confirmed scope. Explicit instructions take precedence.
 
 Publication scope is a binding inclusion rule. Never silently replace IEEE-Trans with "IEEE mainly plus supplements", Custom, or a broader preset. Explain the reason and obtain a separate user decision before expanding publication scope or adding another discovery entry point. Candidate status never bypasses publication scope. Explicitly authorized historical out-of-scope candidates are a separately recorded action, not a change to ongoing search scope.
 
 For a restricted publisher or journal scope, search its **official search platform or an already configured official API first**; this applies to IEEE, Elsevier and other publishers. IEEE presets use **IEEE Xplore first**. For Global scope, choose a suitable scholarly database rather than requiring separate passes through every publisher. The discovery platform does not define inclusion: verify each paper's actual publication against the confirmed scope. Institutional full-text access does not imply an API key. Do not invent unsupported endpoints or require a new MCP. If access is blocked, record the specific response, affected branches and unsearched pages; do not automatically switch to Crossref/OpenAlex/general web topic searches.
+
+When choosing an official publisher route, consult [references/search-sources.md](references/search-sources.md) as needed. It is a navigation aid, not an allowlist or a requirement to search every listed platform. For an unlisted custom source, locate its official journal/publisher entry point. Confirm the route's current official identity and applicability, reusing valid cached evidence where available; record blocked access rather than treating a listed URL as proof of successful searching.
 
 Other databases are not mandatory parallel passes. Propose one only for a demonstrated coverage/access gap and use it after the user chooses it. A targeted DOI metadata check is verification, not a new thematic search. Prefer already retrieved publisher records and cached registration metadata.
 
